@@ -9,4 +9,8 @@ urlpatterns = [
     path('logout', views.logout),
     path('captcha/', include('captcha.urls')),
     path('confirm/', views.user_confirm),
+    path('myblogs', views.myblogs),
+    path('new_blog',views.new_blog),
+    path('blog_detail/<blog_detail_id>',views.blog_detail),
+    path('myblog/delete/<blog_detail_id>',views.blog_delete),
 ]

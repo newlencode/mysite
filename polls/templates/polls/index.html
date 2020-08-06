@@ -5,8 +5,9 @@
     <title>首页</title>
 </head>
 <body>
-<h1>{{ request.session.user_name }}!  欢迎回来！</h1>
-<p>
+<h1 style="color:red;text-align:center;">{{ request.session.user_name }}!  欢迎回来！</h1>
+<p style="color:yellow;text-align:center;">
+    <a href="/myblogs" class="myblogs">点击进入我的博客</a>
     <a href="/logout">登出</a>
 </p>
 </body>

@@ -39,3 +39,18 @@ class ConfirmString(models.Model):
         ordering = ["-c_time"]
         verbose_name = "确认码"
         verbose_name_plural = "确认码"
+
+class BlogPost(models.Model):
+
+    title = models.CharField(max_length=30)
+    content = models.TextField()
+    pub_time = models.DateTimeField()
+    b_userid = models.ForeignKey('Users', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["-pub_time"]
+        verbose_name = "标题"
+        verbose_name_plural = "标题"

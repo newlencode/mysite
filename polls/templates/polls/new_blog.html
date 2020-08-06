@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>编辑博客页面</title>
+</head>
+<form action="/new_blog" method="post">
+    {% csrf_token %}
+    <label>博客标题
+       <input type="text" name="title">
+    </label>
+    </br>
+    <label>博客内容
+        <textarea name="content"  cols="60" rows="20"></textarea>
+    </label>
+    </br>
+    <label>编辑时间
+       <input type="datetime-local" name="pub_time">
+    </label></br>
+    <input type="submit" value="提交">
+</form>
+<body>
+
+</body>
+</html>

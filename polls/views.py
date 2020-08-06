@@ -37,6 +37,7 @@ def login(request):
                 message = '用户不存在！'
                 return render(request, 'polls/login.html', locals())
             if not user.has_confirmed:
+
                 message = '该用户还未经过邮件确认！'
                 return render(request, 'polls/login.html', locals())
             if user.password == hash_code(password):
@@ -154,3 +155,43 @@ def user_confirm(request):
         confirm.delete()
         message = '感谢确认，请使用账户登录！'
         return render(request, 'polls/confirm.html', locals())
+
+def myblogs(request):
+    if not request.session.get('is_login', None):  # 不允许重复登录
+        return redirect('/login')
+    username = request.session.get('user_name')
+    user = models.Users.objects.get(name=username)
+    blogs = models.BlogPost.objects.filter(b_userid=user.id)
+
+    return render(request,'polls/myblogs.html', locals())
+
+def new_blog(request):
+    if not request.session.get('is_login', None):  # 不允许重复登录
+        return redirect('/login')
+    if request.method == 'POST':
+        newblog = models.BlogPost()
+        newblog.title = request.POST.get('title')
+        newblog.content = request.POST.get('content')
+        newblog.pub_time = request.POST.get('pub_time')
+        username = request.session.get('user_name')
+        user = models.Users.objects.get(name=username)
+        newblog.b_userid = user
+        newblog.save()
+        return redirect('/myblogs')
+    return render(request,'polls/new_blog.html', locals())
+
+
+def blog_detail(request,blog_detail_id):
+    if not request.session.get('is_login', None):  # 不允许重复登录
+        return redirect('/login')
+    blog = models.BlogPost.objects.get(id=blog_detail_id)
+    return render(request,'polls/blog_detail.html', locals())
+
+
+def blog_delete(request,blog_detail_id):
+    if not request.session.get('is_login', None):  # 不允许重复登录
+        return redirect('/login')
+    blog = models.BlogPost.objects.filter(id=blog_detail_id)
+    blog.delete()
+    return redirect('/myblogs')
+
